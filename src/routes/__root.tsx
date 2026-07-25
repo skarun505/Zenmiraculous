@@ -4,12 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
-  HeadContent,
-  Scripts,
 } from "@tanstack/react-router";
-import { type ReactNode } from "react";
-
-import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
   return (
@@ -69,57 +64,16 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Zen Miraculous — AI Lead Conversion Systems for Service Businesses" },
-      { name: "description", content: "Done-for-you AI systems that respond, qualify, and book your leads 24/7. Built for high-ticket service businesses in the US, UK, Canada & Australia." },
-      { name: "author", content: "Zen Miraculous" },
-      { property: "og:title", content: "Zen Miraculous — AI Lead Conversion Systems for Service Businesses" },
-      { property: "og:description", content: "Done-for-you AI systems that respond, qualify, and book your leads 24/7. Built for high-ticket service businesses in the US, UK, Canada & Australia." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@ZenMiraculous" },
-      { name: "twitter:title", content: "Zen Miraculous — AI Lead Conversion Systems for Service Businesses" },
-      { name: "twitter:description", content: "Done-for-you AI systems that respond, qualify, and book your leads 24/7. Built for high-ticket service businesses in the US, UK, Canada & Australia." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/86sOeh4rv9h608JUUl1V87w3hQC3/social-images/social-1784810033406-onlywht.webp" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/86sOeh4rv9h608JUUl1V87w3hQC3/social-images/social-1784810033406-onlywht.webp" },
-    ],
-    links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
-    ],
-  }),
-  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
-
-function RootShell({ children }: { children: ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
     </QueryClientProvider>
   );
