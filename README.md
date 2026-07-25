@@ -1,29 +1,24 @@
-# Welcome to your Lovable project
+# Zen Miraculous — AI Lead Conversion Systems
 
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+Done-for-you AI systems that respond, qualify, and book leads 24/7. Built for high-ticket service businesses in the US, UK, Canada & Australia.
 
 ## Development
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
 npm i
 npm run dev
 ```
 
-## Built with
+## Production Build
 
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+```sh
+npm run build
+```
+
+## Tech Stack
+
+- **Framework**: TanStack Start / TanStack Router
+- **Runtime & Server**: Nitro
+- **Bundler**: Vite
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React

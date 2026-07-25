@@ -10,7 +10,6 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
   return (
@@ -37,9 +36,6 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
-  useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
-  }, [error]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -79,12 +75,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Zen Miraculous — AI Lead Conversion Systems for Service Businesses" },
       { name: "description", content: "Done-for-you AI systems that respond, qualify, and book your leads 24/7. Built for high-ticket service businesses in the US, UK, Canada & Australia." },
-      { name: "author", content: "Lovable" },
+      { name: "author", content: "Zen Miraculous" },
       { property: "og:title", content: "Zen Miraculous — AI Lead Conversion Systems for Service Businesses" },
       { property: "og:description", content: "Done-for-you AI systems that respond, qualify, and book your leads 24/7. Built for high-ticket service businesses in the US, UK, Canada & Australia." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:site", content: "@ZenMiraculous" },
       { name: "twitter:title", content: "Zen Miraculous — AI Lead Conversion Systems for Service Businesses" },
       { name: "twitter:description", content: "Done-for-you AI systems that respond, qualify, and book your leads 24/7. Built for high-ticket service businesses in the US, UK, Canada & Australia." },
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/86sOeh4rv9h608JUUl1V87w3hQC3/social-images/social-1784810033406-onlywht.webp" },

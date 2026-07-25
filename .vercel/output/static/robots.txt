@@ -1,0 +1,11 @@
+# robots.txt for https://zenmiraculous.com
+
+User-agent: *
+Allow: /
+Allow: /privacy
+
+# Disallow indexing of private/ad conversion pages
+Disallow: /landing
+Disallow: /thank-you
+
+Sitemap: https://zenmiraculous.com/sitemap.xml
