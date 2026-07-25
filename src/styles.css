@@ -1,0 +1,224 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.75rem;
+  /* Deep navy + cyan/teal palette */
+  --background: oklch(0.16 0.03 250);
+  --foreground: oklch(0.97 0.01 240);
+  --surface: oklch(0.21 0.035 250);
+  --surface-2: oklch(0.26 0.04 250);
+  --card: oklch(0.21 0.035 250);
+  --card-foreground: oklch(0.97 0.01 240);
+  --popover: oklch(0.21 0.035 250);
+  --popover-foreground: oklch(0.97 0.01 240);
+  --primary: oklch(0.82 0.15 195);
+  --primary-foreground: oklch(0.16 0.03 250);
+  --secondary: oklch(0.28 0.04 250);
+  --secondary-foreground: oklch(0.97 0.01 240);
+  --muted: oklch(0.26 0.03 250);
+  --muted-foreground: oklch(0.72 0.02 240);
+  --accent: oklch(0.72 0.17 180);
+  --accent-foreground: oklch(0.16 0.03 250);
+  --destructive: oklch(0.62 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.32 0.03 250);
+  --input: oklch(0.28 0.03 250);
+  --ring: oklch(0.82 0.15 195);
+
+  --gradient-hero: radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      color-mix(in oklab, var(--primary) 25%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 90% 30%,
+      color-mix(in oklab, var(--accent) 18%, transparent),
+      transparent 60%
+    );
+  --shadow-glow: 0 20px 60px -20px color-mix(in oklab, var(--primary) 50%, transparent);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: var(--primary-foreground);
+  font-weight: 600;
+  padding: 0.9rem 1.5rem;
+  box-shadow: var(--shadow-glow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 25px 70px -20px color-mix(in oklab, var(--primary) 70%, transparent);
+  }
+}
+
+@utility btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  font-weight: 500;
+  padding: 0.85rem 1.4rem;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  &:hover {
+    background: var(--surface);
+    border-color: var(--primary);
+  }
+}
+
+@utility grid-bg {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--primary) 8%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--primary) 8%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black, transparent 80%);
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@utility animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@utility animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@utility btn-amber {
+  background-color: #f59e0b;
+  color: #1c1917;
+  font-weight: 600;
+  padding: 14px 28px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  width: 100%;
+  justify-content: center;
+  &:hover {
+    background-color: #d97706;
+  }
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+@utility form-input {
+  background-color: #18181b;
+  border: 1px solid #27272a;
+  color: #fafafa;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s ease;
+  &:focus {
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+  }
+}
+
+@utility form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #a1a1aa;
+  margin-bottom: 6px;
+}
+
+@utility form-error {
+  color: #f87171;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+@utility progress-bar-track {
+  width: 100%;
+  height: 4px;
+  background: #27272a;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+@utility progress-bar-fill {
+  height: 100%;
+  background: #f59e0b;
+  border-radius: 2px;
+  transition: width 1s linear;
+}
+

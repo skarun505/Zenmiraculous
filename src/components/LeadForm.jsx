@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLock } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from '@tanstack/react-router';
+import { Lock } from 'lucide-react';
 
 const BUSINESS_TYPES = [
   'Mortgage Broker',
@@ -63,21 +62,20 @@ export default function LeadForm() {
 
     // Honeypot check: real users never see or fill this field
     if (form.website) {
-      await new Promise((r) => setTimeout(r, 400)); // mimic real delay
-      navigate('/thank-you', {
-        state: {
+      await new Promise((r) => setTimeout(r, 400));
+      navigate({
+        to: '/thank-you',
+        search: {
           name: form.name.trim().split(' ')[0],
           email: form.email.trim(),
         },
       });
-      return; // silently drop the bot submission
+      return;
     }
 
     setLoading(true);
     try {
-      // Fire Meta Pixel Lead event if available
       if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
-      // Fire Google Ads conversion if available
       if (typeof window.gtag === 'function') {
         window.gtag('event', 'conversion', { send_to: 'AW-XXXXXXXXXX/XXXXXXXX' });
       }
@@ -105,12 +103,12 @@ export default function LeadForm() {
         ...attribution,
       };
 
-      // Dev Mode fallback: If using dummy placeholder endpoint, simulate success so UI flow can be tested
       if (FORMSPREE_URL.includes('YOUR_FORM_ID')) {
         console.log('[Dev Mode] Form submitted successfully:', payload);
         await new Promise((r) => setTimeout(r, 400));
-        navigate('/thank-you', {
-          state: {
+        navigate({
+          to: '/thank-you',
+          search: {
             name: form.name.trim().split(' ')[0],
             email: form.email.trim(),
           },
@@ -125,8 +123,9 @@ export default function LeadForm() {
       });
 
       if (response.ok) {
-        navigate('/thank-you', {
-          state: {
+        navigate({
+          to: '/thank-you',
+          search: {
             name: form.name.trim().split(' ')[0],
             email: form.email.trim(),
           },
@@ -161,13 +160,13 @@ export default function LeadForm() {
       </div>
 
       <form onSubmit={handleSubmit} noValidate>
-        {/* HONEYPOT — visually hidden, catches bots that auto-fill all fields */}
+        {/* HONEYPOT — visually hidden */}
         <input
           type="text"
           name="website"
           value={form.website}
           onChange={handleChange}
-          tabIndex="-1"
+          tabIndex={-1}
           autoComplete="off"
           aria-hidden="true"
           style={{ position: 'absolute', left: '-9999px', height: 0, opacity: 0, pointerEvents: 'none' }}
@@ -323,9 +322,13 @@ export default function LeadForm() {
             textAlign: 'center',
             marginTop: '12px',
             lineHeight: 1.5,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '4px',
           }}
         >
-          <FontAwesomeIcon icon={faLock} /> No spam. No sales reps. You speak directly to Harsh.
+          <Lock className="h-3.5 w-3.5 text-[#52525b]" /> No spam. No sales reps. You speak directly to Harsh.
         </p>
       </form>
     </div>
