@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import LeadForm from "../components/LeadForm";
 import {
@@ -9,6 +9,10 @@ import {
   Handshake,
   Target,
   CheckCircle2,
+  Menu,
+  X,
+  Sparkles,
+  ArrowRight,
 } from "lucide-react";
 
 export const Route = createFileRoute("/landing")({
@@ -144,6 +148,7 @@ const STEPS = [
 
 function LandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
@@ -156,18 +161,92 @@ function LandingPage() {
   return (
     <div className="min-h-screen bg-[#09090b] text-[#fafafa]">
       {/* NAVBAR */}
-      <nav className="sticky top-0 z-50 flex items-center justify-between border-b border-[#27272a] bg-[#09090b] px-6 py-3.5">
-        <a href="/" className="text-lg font-bold text-[#fafafa] no-underline">
-          Zen Miraculous
-        </a>
-        <a
-          href={CALENDLY_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm font-semibold text-[#f59e0b] no-underline hover:text-[#d97706]"
-        >
-          Book a Call →
-        </a>
+      <nav className="sticky top-0 z-50 border-b border-[#27272a] bg-[#09090b]/90 backdrop-blur-md px-6 py-3.5">
+        <div className="mx-auto flex max-w-[1200px] items-center justify-between">
+          <Link to="/" className="flex items-center gap-2 text-lg font-bold text-[#fafafa] no-underline">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-[#f59e0b] to-[#d97706]">
+              <Sparkles className="h-4 w-4 text-black" />
+            </div>
+            <span>Zen Miraculous</span>
+          </Link>
+
+          <div className="hidden items-center gap-8 md:flex">
+            <Link to="/" className="text-sm font-medium text-[#a1a1aa] no-underline hover:text-[#fafafa] transition-colors">
+              Home
+            </Link>
+            <a href="#how-it-works" className="text-sm font-medium text-[#a1a1aa] no-underline hover:text-[#fafafa] transition-colors">
+              How It Works
+            </a>
+            <a href="#comparison" className="text-sm font-medium text-[#a1a1aa] no-underline hover:text-[#fafafa] transition-colors">
+              Comparison
+            </a>
+            <a href="#faq" className="text-sm font-medium text-[#a1a1aa] no-underline hover:text-[#fafafa] transition-colors">
+              FAQ
+            </a>
+          </div>
+
+          <div className="hidden items-center gap-3 md:flex">
+            <a
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-[#f59e0b] px-4 py-2 text-sm font-semibold text-black no-underline hover:bg-[#d97706] transition-colors"
+            >
+              Book a Call <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+
+          <button
+            onClick={() => setMenuOpen((v) => !v)}
+            className="p-1.5 text-[#fafafa] md:hidden focus:outline-none"
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
+
+        {/* MOBILE MENU */}
+        {menuOpen && (
+          <div className="mt-3 flex flex-col gap-3 border-t border-[#27272a] pt-4 md:hidden">
+            <Link
+              to="/"
+              onClick={() => setMenuOpen(false)}
+              className="py-1 text-sm font-medium text-[#a1a1aa] no-underline hover:text-[#fafafa]"
+            >
+              Home
+            </Link>
+            <a
+              href="#how-it-works"
+              onClick={() => setMenuOpen(false)}
+              className="py-1 text-sm font-medium text-[#a1a1aa] no-underline hover:text-[#fafafa]"
+            >
+              How It Works
+            </a>
+            <a
+              href="#comparison"
+              onClick={() => setMenuOpen(false)}
+              className="py-1 text-sm font-medium text-[#a1a1aa] no-underline hover:text-[#fafafa]"
+            >
+              Comparison
+            </a>
+            <a
+              href="#faq"
+              onClick={() => setMenuOpen(false)}
+              className="py-1 text-sm font-medium text-[#a1a1aa] no-underline hover:text-[#fafafa]"
+            >
+              FAQ
+            </a>
+            <a
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMenuOpen(false)}
+              className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-lg bg-[#f59e0b] px-4 py-2.5 text-sm font-semibold text-black no-underline"
+            >
+              Book a Strategy Call <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+        )}
       </nav>
 
       {/* HERO */}
@@ -237,7 +316,7 @@ function LandingPage() {
       </section>
 
       {/* HOW IT WORKS SECTION */}
-      <section className="mx-auto max-w-[1200px] border-t border-[#27272a] px-6 py-14">
+      <section id="how-it-works" className="mx-auto max-w-[1200px] border-t border-[#27272a] px-6 py-14">
         <div className="mb-12 text-center">
           <span className="text-xs font-semibold uppercase tracking-widest text-[#f59e0b]">
             Proven 3-Step Process
@@ -262,7 +341,7 @@ function LandingPage() {
       </section>
 
       {/* COMPARISON MATRIX */}
-      <section className="mx-auto max-w-[1200px] border-t border-[#27272a] px-6 py-14">
+      <section id="comparison" className="mx-auto max-w-[1200px] border-t border-[#27272a] px-6 py-14">
         <div className="mb-10 text-center">
           <h2 className="text-[clamp(24px,3.5vw,36px)] font-bold text-[#fafafa]">
             Traditional Manual Follow-Up vs. Zen Miraculous AI
@@ -354,7 +433,7 @@ function LandingPage() {
       </section>
 
       {/* FAQ SECTION */}
-      <section className="mx-auto max-w-[900px] border-t border-[#27272a] px-6 pb-20 pt-10">
+      <section id="faq" className="mx-auto max-w-[900px] border-t border-[#27272a] px-6 pb-20 pt-10">
         <div className="mb-10 text-center">
           <span className="text-xs font-semibold tracking-wider text-[#f59e0b]">GOT QUESTIONS?</span>
           <h2 className="mt-2 text-3xl font-bold text-[#fafafa]">Frequently Asked Questions</h2>

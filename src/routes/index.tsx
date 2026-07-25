@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import {
   ArrowRight,
@@ -120,7 +120,7 @@ function Home() {
             <a href="#industries" className="hover:text-foreground transition">Industries</a>
             <a href="#testimonials" className="hover:text-foreground transition">Results</a>
             <a href="#faq" className="hover:text-foreground transition">FAQ</a>
-            <a href="/landing" className="hover:text-foreground transition text-primary font-medium">Ads Landing Page</a>
+            <Link to="/landing" className="hover:text-foreground transition text-primary font-medium">Ads Landing Page</Link>
           </nav>
           <a href={BOOKING_URL} target="_blank" rel="noopener" className="hidden md:inline-flex btn-primary text-sm">
             Book a Free Call <ArrowRight className="h-4 w-4" />
